@@ -31,7 +31,11 @@ except Exception:
 # =============================================================================
 APP_NAME = os.getenv("APP_NAME", "Stock Dashboard")
 API_V1_PREFIX = os.getenv("API_V1_PREFIX", "/api/v1")
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:8000").split(",")
+CORS_ORIGINS = [
+	origin.strip()
+	for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:8000").split(",")
+	if origin.strip()
+]
 
 # =============================================================================
 # DATABASE CONFIGURATION
