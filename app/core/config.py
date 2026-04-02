@@ -36,7 +36,7 @@ CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost
 # =============================================================================
 # DATABASE CONFIGURATION
 # =============================================================================
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./stock_data.db")
+DATABASE_URL = (os.getenv("DATABASE_URL") or "sqlite:///./stock_data.db").strip()
 
 # =============================================================================
 # AI / GEMINI CONFIGURATION
