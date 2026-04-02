@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: stock-dashboard-backend
+    runtime: python
+    rootDir: .
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: API_V1_PREFIX
+        value: /api/v1
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ALPHA_VANTAGE_API_KEY
+        sync: false
+      - key: STOCK_PROVIDER_PRIMARY
+        value: yahoo
+      - key: STOCK_PROVIDER_FALLBACK
+        value: alpha_vantage
+
+  - type: web
+    name: stock-dashboard-frontend
+    runtime: node
+    rootDir: stock-dashboard-frontend
+    plan: free
+    buildCommand: npm ci ; npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: NEXT_PUBLIC_API_BASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_INGEST_ADMIN_KEY
+        sync: false
